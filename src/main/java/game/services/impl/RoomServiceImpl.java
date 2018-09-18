@@ -70,7 +70,7 @@ public class RoomServiceImpl implements RoomService {
         accountDao.setRoomForAccount(user.getId(),roomId);
         int accountId = accountDao.getAccountIdByUserId(user.getId());
         accountBuildingDao.clearAccountBuildingsList(accountId);
-        accountResourceDao.cleanAccountResourses(accountId);
+     //   accountResourceDao.cleanAccountResourses(accountId);
         accountUpgradeDao.cleanAccountUpgrade(accountId);
         accountNotificationDao.clearAccountNotificationList(accountId);
         roomDao.joinRoom(roomId, accountId, roomDao.getFreeAccountNumberForQuery(roomId));

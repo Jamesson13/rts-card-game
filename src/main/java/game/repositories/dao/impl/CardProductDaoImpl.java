@@ -54,6 +54,8 @@ public class CardProductDaoImpl implements CardProductDao {
                 }
                 if (allowCards.size() > 0) {
                     returnResult(allowCards);
+                } else {
+                    returnResult(new LinkedList<>());
                 }
             }
         }.run();

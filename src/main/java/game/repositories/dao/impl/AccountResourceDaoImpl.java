@@ -61,6 +61,8 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
                 }
                 if (accountResourceQuantityList.size() > 0) {
                     returnResult(accountResourceQuantityList);
+                } else {
+                    returnResult(new LinkedList<>());
                 }
             }
         }.run();
@@ -68,7 +70,7 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
 
     private String prepareListOfAllowCardsForAccountQuery(Integer accountId) {
         StringBuilder q = new StringBuilder();
-        q.append("SELECT ar.resource_id, ar.number, (ab.number * bp.number_per_sec + ab.number / 100 * up.percent) res_per_min ");
+        q.append("SELECT bp.resource_id, ar.resource_id, ar.number, (ab.number * bp.number_per_sec + ab.number / 100 * up.percent) res_per_min ");
         q.append("FROM Account_Resource ar ");
         q.append("LEFT JOIN Account_Building ab ON ar.account_id = ab.account_id ");
         q.append("LEFT JOIN Account_Upgrade au ON ar.account_id = au.account_id ");
@@ -77,7 +79,7 @@ public class AccountResourceDaoImpl implements AccountResourceDao {
         q.append("WHERE ar.account_id = " + accountId +
                  " AND ab.account_id = " + accountId);
         q.append(" AND bp.resource_id = ar.resource_id AND ab.building_id = bp.building_id ");
-        q.append("GROUP BY bp.resource_id ");
+        //q.append("GROUP BY bp.resource_id ");
         return q.toString();
     }
 
